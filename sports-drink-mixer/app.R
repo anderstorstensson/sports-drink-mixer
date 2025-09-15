@@ -17,9 +17,9 @@ ui <- fluidPage(
     sidebarPanel(
       numericInput("servings", "Number of servings:", value = 20, min = 1),
       numericInput("serving_size", "Serving size (g):", value = 80, min = 1),
-      numericInput("ratio_malto", "Maltodextrin ratio part:", value = 1, min = 0),
-      numericInput("ratio_fruct", "Fructose ratio part:", value = 0.8, min = 0),
-      numericInput("salt", "Electrolytes per serving (g):", value = 1, min = 0, step = 0.1)
+      numericInput("ratio_malto", "Maltodextrin ratio part:", value = 1, min = 0, step = 0.1),
+      numericInput("ratio_fruct", "Fructose ratio part:", value = 0.8, min = 0, step = 0.1),
+      numericInput("salt", "Electrolytes/salt per serving (g):", value = 1, min = 0, step = 0.1)
     ),
 
     mainPanel(
@@ -64,7 +64,7 @@ server <- function(input, output) {
     kcal_per_serv <- malto_per_serv * kcal_malto + fruct_per_serv * kcal_fruct
 
     tibble(
-      Ingredient = c("Maltodextrin", "Fructose", "Electrolytes", "Total kcal"),
+      Ingredient = c("Maltodextrin", "Fructose", "Electrolytes/salt", "Total kcal"),
       `Per Serving` = c(
         round(malto_per_serv, 1),
         round(fruct_per_serv, 1),
