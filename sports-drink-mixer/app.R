@@ -26,6 +26,21 @@ ui <- fluidPage(
       h3("Ingredients Needed"),
       tableOutput("ingredient_table")
     )
+  ),
+  # Footer with GitHub link
+  tags$footer(
+    tags$hr(),
+    "Source code available on ",
+    tags$a(href = "https://github.com/anderstorstensson/sports-drink-mixer", "GitHub"),
+    align = "center",
+    style = "
+      position:fixed;
+      bottom:0;
+      width:100%;
+      padding:10px;
+      background:#f8f9fa;
+      color:#555;
+    "
   )
 )
 
