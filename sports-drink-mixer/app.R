@@ -34,13 +34,11 @@ ui <- fluidPage(
     tags$a(href = "https://github.com/anderstorstensson/sports-drink-mixer", "GitHub"),
     align = "center",
     style = "
-      position:fixed;
-      bottom:0;
-      width:100%;
-      padding:10px;
-      background:#f8f9fa;
-      color:#555;
-    "
+    margin-top:20px;
+    padding:10px;
+    background:#f8f9fa;
+    color:#555;
+  "
   )
 )
 
@@ -63,21 +61,27 @@ server <- function(input, output) {
     # kcal per serving
     kcal_per_serv <- malto_per_serv * kcal_malto + fruct_per_serv * kcal_fruct
 
+    # total weight per serving (g)
+    total_weight_per_serv <- malto_per_serv + fruct_per_serv + input$salt
+    total_weight_all_serv <- total_weight_per_serv * input$servings
+
     tibble(
-      Ingredient = c("Maltodextrin", "Fructose", "Electrolytes/salt", "Total kcal"),
+      Ingredient = c("Maltodextrin", "Fructose", "Electrolytes/salt", "Total kcal", "Total weight"),
       `Per Serving` = c(
         round(malto_per_serv, 1),
         round(fruct_per_serv, 1),
         round(input$salt, 1),
-        round(kcal_per_serv, 1)
+        round(kcal_per_serv, 1),
+        round(total_weight_per_serv, 1)
       ),
       `Total (all servings)` = c(
         round(malto_per_serv * input$servings, 1),
         round(fruct_per_serv * input$servings, 1),
         round(input$salt * input$servings, 1),
-        round(kcal_per_serv * input$servings, 1)
+        round(kcal_per_serv * input$servings, 1),
+        round(total_weight_all_serv, 1)
       ),
-      Unit = c("g", "g", "g", "kcal")
+      Unit = c("g", "g", "g", "kcal", "g")
     )
 
   }, digits = 1)
